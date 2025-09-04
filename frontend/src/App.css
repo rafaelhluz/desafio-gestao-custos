@@ -275,3 +275,78 @@ body {
 .main-content-wrapper.collapsed {
   margin-left: 80px; /* Mesma largura final da sidebar colapsada */
 }
+
+/* ===== Dashboard Modern Styles ===== */
+.dashboard-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.summary-card, .chart-card {
+  background: linear-gradient(145deg, #ffffff, #f1f5f9);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.summary-card:hover, .chart-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.12);
+}
+
+.summary-title, .chart-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 1rem;
+}
+
+.total-expenses {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+.highlight-value {
+  color: #4f46e5;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.summary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: #eef2ff;
+  border-radius: 8px;
+  font-weight: 500;
+  color: #1f2937;
+  transition: background 0.3s ease;
+}
+
+.summary-item:hover {
+  background-color: #dbeafe;
+}
+
+.chart-card {
+  text-align: center;
+}
+
+/* ===== Animações ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
