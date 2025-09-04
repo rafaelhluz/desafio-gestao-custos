@@ -1,52 +1,65 @@
 const CostCenter = require('../models/costCenter');
 
-// Lógica para listar todos os centros de custo
 exports.getAllCostCenters = async (req, res) => {
   try {
     const costCenters = await CostCenter.findAll();
-    res.json(costCenters);
+    res.status(200).json(costCenters);
   } catch (error) {
+    console.error('Erro ao buscar centros de custo:', error);
     res.status(500).json({ error: 'Erro ao buscar centros de custo.' });
   }
 };
 
-// Lógica para criar um novo centro de custo
 exports.createCostCenter = async (req, res) => {
   try {
-    const newCostCenter = await CostCenter.create(req.body);
+    const { name } = req.body;
+    if (!name) {
+      return res.status(400).json({ error: 'O nome é obrigatório.' });
+    }
+    const newCostCenter = await CostCenter.create({ name });
     res.status(201).json(newCostCenter);
   } catch (error) {
-    res.status(400).json({ error: 'Erro ao criar centro de custo.' });
+    console.error('Erro ao criar centro de custo:', error);
+    res.status(500).json({ error: 'Erro ao criar centro de custo.' });
   }
 };
 
-// Lógica para atualizar um centro de custo
+// NOVO: Adicione as funções de atualização e exclusão
 exports.updateCostCenter = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const [updated] = await CostCenter.update(req.body, { where: { id } });
-    if (updated) {
-      const updatedCostCenter = await CostCenter.findByPk(id);
-      res.json(updatedCostCenter);
-    } else {
-      res.status(404).json({ error: 'Centro de custo não encontrado.' });
+    try {
+        const { id } = req.params;
+        const { name } = req.body;
+
+        const [updated] = await CostCenter.update({ name }, {
+            where: { id: id }
+        });
+
+        if (updated) {
+            const updatedCostCenter = await CostCenter.findByPk(id);
+            return res.status(200).json(updatedCostCenter);
+        }
+
+        throw new Error('Centro de Custo não encontrado.');
+    } catch (error) {
+        console.error('Erro ao atualizar centro de custo:', error);
+        res.status(500).json({ error: 'Erro ao atualizar centro de custo.' });
     }
-  } catch (error) {
-    res.status(500).json({ error: 'Erro ao atualizar centro de custo.' });
-  }
 };
 
-// Lógica para deletar um centro de custo
 exports.deleteCostCenter = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const deleted = await CostCenter.destroy({ where: { id } });
-    if (deleted) {
-      res.status(204).send("Centro de custo deletado.");
-    } else {
-      res.status(404).json({ error: 'Centro de custo não encontrado.' });
+    try {
+        const { id } = req.params;
+        const deleted = await CostCenter.destroy({
+            where: { id: id }
+        });
+        
+        if (deleted) {
+            return res.status(204).send("Centro de Custo deletado com sucesso.");
+        }
+        
+        throw new Error("Centro de Custo não encontrado.");
+    } catch (error) {
+        console.error('Erro ao deletar centro de custo:', error);
+        res.status(500).json({ error: 'Erro ao deletar centro de custo.' });
     }
-  } catch (error) {
-    res.status(500).json({ error: 'Erro ao deletar centro de custo.' });
-  }
 };

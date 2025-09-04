@@ -1,0 +1,67 @@
+/* Centralização do conteúdo na página */
+.center-content {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente na página */
+  align-items: center; /* Centraliza verticalmente na página */
+  min-height: 200px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Estilo do Card que envolve o formulário */
+.cost-center-form-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 2rem;
+  box-sizing: border-box;
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+/* Estilo do Formulário */
+.cost-center-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.cost-center-form input {
+  width: 100%;
+  max-width: 300px;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.cost-center-form input:focus {
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+.cost-center-form button {
+  padding: 1rem 2rem;
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+}
+
+.cost-center-form button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}

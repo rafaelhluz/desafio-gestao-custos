@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './CostCenterForm.css'; // Importe o arquivo CSS que criamos
 
 function CostCenterForm({ onFormSubmit }) {
   const [name, setName] = useState('');
@@ -16,7 +17,7 @@ function CostCenterForm({ onFormSubmit }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="cost-center-form">
       <input
         type="text"
         placeholder="Nome do Centro de Custo"

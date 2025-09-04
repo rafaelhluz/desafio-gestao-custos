@@ -1,21 +1,22 @@
+// server.js
 const express = require('express');
+const cors = require('cors');
 const sequelize = require('./database');
-const CostCenter = require('./models/costCenter');
-const Expense = require('./models/expense');
 const costCenterRoutes = require('./routes/costCenterRoutes');
-const expenseRoutes = require('./routes/expenseRoutes'); // <-- Adicione esta linha
+const expenseRoutes = require('./routes/expenseRoutes'); // importa rotas
+require('./models/costCenter'); // importa model para registrar no Sequelize
+require('./models/expense'); // importa model para registrar no Sequelize
 
 const app = express();
 const port = 3000;
 
-// Middleware para processar JSON e habilitar CORS (Cross-Origin Resource Sharing)
+// Middlewares
 app.use(express.json());
-const cors = require('cors'); // Você precisará instalar o 'cors'
 app.use(cors());
 
-// Conecta as rotas
+// Rotas
 app.use('/api/cost-centers', costCenterRoutes);
-app.use('/api/expenses', expenseRoutes); // <-- Adicione esta linha
+app.use('/api/expenses', expenseRoutes);
 
 const startServer = async () => {
   try {

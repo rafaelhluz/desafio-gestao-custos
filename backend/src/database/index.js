@@ -1,8 +1,8 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: './database.sqlite', // O arquivo do banco de dados será criado aqui
+const sequelize = new Sequelize('desafio_gestao_custos', 'root', '1322', {
+  host: 'localhost',
+  dialect: 'mysql', // Certifique-se de que o dialeto é 'mysql'
 });
 
 module.exports = sequelize;

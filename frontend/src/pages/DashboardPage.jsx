@@ -1,67 +1,112 @@
-import React from "react";
-import "./DashboardPage.css";
+import React, { useState, useEffect } from 'react';
+import expensesApi from '../api/expensesApi';
+import costCentersApi from '../api/costCentersApi';
+import '../App.css';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 function DashboardPage() {
+  const [loading, setLoading] = useState(true);
+  const [totalExpenses, setTotalExpenses] = useState(0);
+  const [expensesByCostCenterData, setExpensesByCostCenterData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const expensesResponse = await expensesApi.getAll();
+        const costCentersResponse = await costCentersApi.getAll();
+
+        const expensesData = expensesResponse.data || expensesResponse;
+        const costCentersData = costCentersResponse.data || costCentersResponse;
+
+        // Mapear expenses com cost center name
+        const expensesWithNames = expensesData.map(expense => {
+          const cc = costCentersData.find(cc => cc.id === expense.costCenterId);
+          // Certifique-se de que expense.date está em formato de data (YYYY-MM-DD)
+          // E que expense.value é um número
+          return {
+            ...expense,
+            costCenterName: cc ? cc.name : 'Outros',
+            value: parseFloat(expense.value) // Garantir que o valor é um número
+          };
+        });
+
+        // Calcular o total de despesas
+        const total = expensesWithNames.reduce((sum, expense) => sum + expense.value, 0);
+        setTotalExpenses(total);
+
+        // Agrupar despesas por centro de custo para o gráfico
+        const groupedExpenses = expensesWithNames.reduce((acc, expense) => {
+          const { costCenterName, value } = expense;
+          if (!acc[costCenterName]) {
+            acc[costCenterName] = 0;
+          }
+          acc[costCenterName] += value;
+          return acc;
+        }, {});
+
+        // Formatar os dados para o Recharts
+        const chartData = Object.entries(groupedExpenses).map(([name, value]) => ({
+          name: name,
+          Despesas: value,
+        }));
+        setExpensesByCostCenterData(chartData);
+
+        setLoading(false);
+      } catch (error) {
+        console.error('Erro ao buscar dados para o dashboard:', error);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div className="page-container">Carregando dados...</div>;
+  }
+
   return (
-    <div className="dashboard-container">
-      <header>
-        <h1>Dashboard</h1>
-        <p>Seus dashboards</p>
-      </header>
-
-      {/* Resumo Rápido */}
-      <section>
-        <h2 className="section-title">📈 Resumo Rápido</h2>
-        <div className="card-grid">
-          <div className="card">
-            <p>Gastos com Supermercado</p>
-            <h3>387</h3>
-          </div>
-          <div className="card">
-            <p>Gastos com Transporte</p>
-            <h3>42</h3>
-          </div>
-          <div className="card">
-            <p>Gastos com Lazer</p>
-            <h3>R$ 15.2k</h3>
-          </div>
-          <div className="card">
-            <p>Gastos totais</p>
-            <h3>28</h3>
+    <div className="page-container">
+      <h1 className="page-title">Dashboard</h1>
+      <p className="page-subtitle">Visão geral das suas finanças.</p>
+      <div className="dashboard-content">
+        <div className="card summary-card">
+          <h3>Resumo Mensal</h3>
+          <p>
+            Total de Despesas: <span className="highlight-value">R$ {totalExpenses.toFixed(2)}</span>
+          </p>
+          <div className="summary-list">
+            {expensesByCostCenterData.length > 0 ? (
+              expensesByCostCenterData.map((item) => (
+                <div key={item.name} className="summary-item">
+                  <span className="summary-label">{item.name}</span>
+                  <span className="summary-value">R$ {item.Despesas.toFixed(2)}</span>
+                </div>
+              ))
+            ) : (
+              <p>Nenhuma despesa para exibir no resumo.</p>
+            )}
           </div>
         </div>
-      </section>
 
-      {/* Indicadores do Mês */}
-      <section>
-        <h2 className="section-title">📅 Indicadores do Mês</h2>
-        <div className="card-grid">
-          <div className="card">
-            <p>Exemplo</p>
-            <h3>156</h3>
-          </div>
-          <div className="card">
-            <p>Exemplo</p>
-            <h3>23</h3>
-          </div>
-          <div className="card">
-            <p>Exemplo</p>
-            <h3>34</h3>
-          </div>
+        {/* Card do Gráfico de Barras */}
+        <div className="card chart-card">
+          <h3>Distribuição de Despesas por Centro de Custo</h3>
+          {expensesByCostCenterData.length > 0 ? (
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={expensesByCostCenterData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip cursor={{ fill: 'transparent' }} formatter={(value) => `R$ ${value.toFixed(2)}`} />
+                <Legend />
+                <Bar dataKey="Despesas" fill="#8884d8" />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <p className="text-center">Adicione despesas para ver o gráfico!</p>
+          )}
         </div>
-      </section>
-
-      {/* Gráfico */}
-      <section>
-        <h2 className="section-title">📊 Gastos por mês</h2>
-        <div className="chart-card">
-          {/* Aqui você pode usar Chart.js ou Recharts */}
-          <img
-            src="https://quickchart.io/chart?c={type:'bar',data:{labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],datasets:[{label:'Gastos',data:[20,15,30,40,25,33,18,16,45,35,27,31]}]}}"
-            alt="Gráfico de gastos"
-          />
-        </div>
-      </section>
+      </div>
     </div>
   );
 }

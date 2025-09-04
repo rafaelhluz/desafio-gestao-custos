@@ -1,10 +1,8 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 const CostCenter = require('./costCenter');
 
-class Expense extends Model {}
-
-Expense.init({
+const Expense = sequelize.define('Expense', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -15,21 +13,26 @@ Expense.init({
     allowNull: false,
   },
   value: {
-    type: DataTypes.DECIMAL(10, 2),
+    type: DataTypes.FLOAT,
     allowNull: false,
   },
   date: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false,
   },
-}, {
-  sequelize,
-  modelName: 'Expense',
-  tableName: 'Expenses'
+  type: {
+    type: DataTypes.STRING,
+    defaultValue: 'despesa',
+  },
 });
 
-// Define a relação entre Expense e CostCenter
-CostCenter.hasMany(Expense, { foreignKey: 'costCenterId' });
-Expense.belongsTo(CostCenter, { foreignKey: 'costCenterId' });
+// Associações
+Expense.belongsTo(CostCenter, {
+  foreignKey: 'costCenterId',
+});
+
+CostCenter.hasMany(Expense, {
+  foreignKey: 'costCenterId',
+});
 
 module.exports = Expense;

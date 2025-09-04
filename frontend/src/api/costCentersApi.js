@@ -1,17 +1,47 @@
-import api from './api';
+import axios from 'axios';
+
+const API_URL = 'http://localhost:3000/api/cost-centers';
 
 const costCentersApi = {
-  // Rota para listar todos os centros de custo
-  getAll: () => api.get('/cost-centers'),
-  
-  // Rota para criar um novo centro de custo
-  create: (costCenterData) => api.post('/cost-centers', costCenterData),
-  
-  // Rota para atualizar um centro de custo
-  update: (id, costCenterData) => api.put(`/cost-centers/${id}`, costCenterData),
-  
-  // Rota para deletar um centro de custo
-  remove: (id) => api.delete(`/cost-centers/${id}`),
+  getAll: async () => {
+    try {
+      const response = await axios.get(API_URL);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao buscar centros de custo:', error);
+      throw error;
+    }
+  },
+
+  create: async (costCenterData) => {
+    try {
+      const response = await axios.post(API_URL, costCenterData);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao criar centro de custo:', error);
+      throw error;
+    }
+  },
+
+  update: async (id, costCenterData) => {
+    try {
+      const response = await axios.put(`${API_URL}/${id}`, costCenterData);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao atualizar centro de custo:', error);
+      throw error;
+    }
+  },
+
+  remove: async (id) => {
+    try {
+      const response = await axios.delete(`${API_URL}/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao remover centro de custo:', error);
+      throw error;
+    }
+  },
 };
 
 export default costCentersApi;

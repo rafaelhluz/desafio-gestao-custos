@@ -1,0 +1,79 @@
+.footer-container {
+  background-color: #f8f9fa; /* Fundo principal cinza claro */
+  border-top: 1px solid #e9ecef; /* Linha divisória */
+  color: #343a40; /* Cor do texto */
+  padding-top: 2rem;
+  margin-top: 2rem;
+}
+
+.footer-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Permite que as colunas quebrem em telas menores */
+  gap: 2rem;
+}
+
+.footer-col {
+  flex: 1;
+  min-width: 200px; /* Garante que as colunas não fiquem muito pequenas */
+}
+
+.footer-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #007bff;
+}
+
+.footer-col p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-col a {
+  text-decoration: none;
+  color: #343a40;
+  transition: color 0.2s ease;
+}
+
+.footer-col a:hover {
+  color: #007bff;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-icons a {
+  color: #343a40;
+  font-size: 1.5rem;
+  transition: color 0.2s ease;
+}
+
+.social-icons a:hover {
+  color: #007bff;
+}
+
+.footer-bottom {
+  border-top: 1px solid #e9ecef;
+  background-color: #dee2e6;
+  text-align: center;
+  padding: 1rem 2rem;
+  font-size: 0.85rem;
+  color: #6c757d;
+}

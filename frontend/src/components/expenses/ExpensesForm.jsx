@@ -1,75 +1,115 @@
 import React, { useState, useEffect } from 'react';
-import costCentersApi from '../../api/costCentersApi';
+import './ExpensesForm.css';
 
-function ExpenseForm({ onFormSubmit }) {
-  const [description, setDescription] = useState('');
-  const [value, setValue] = useState('');
-  const [date, setDate] = useState('');
-  const [costCenterId, setCostCenterId] = useState('');
-  const [costCenters, setCostCenters] = useState([]);
+const ExpenseForm = ({ onFormSubmit, initialData, costCenters }) => {
+  const [formData, setFormData] = useState({
+    costCenterId: '',
+    description: '',
+    value: '',
+    date: '',
+  });
 
+  // Se houver dados iniciais (edição), preenche o formulário
   useEffect(() => {
-    // Busca os centros de custo para popular o campo de seleção
-    const fetchCostCenters = async () => {
-      try {
-        const response = await costCentersApi.getAll();
-        setCostCenters(response.data);
-      } catch (error) {
-        console.error('Erro ao buscar centros de custo:', error);
-      }
-    };
-    fetchCostCenters();
-  }, []);
+    if (initialData) {
+      setFormData({
+        costCenterId: initialData.costCenter?.id || initialData.costCenterId || '',
+        description: initialData.description || '',
+        value: initialData.value || '',
+        date: initialData.date || '',
+      });
+    }
+  }, [initialData]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (!description || !value || !date || !costCenterId) return;
-
-    // Converte o valor para o formato correto
-    const expenseData = {
-      description,
-      value: parseFloat(value),
-      date,
-      costCenterId: parseInt(costCenterId),
-    };
-
-    onFormSubmit(expenseData);
-    setDescription('');
-    setValue('');
-    setDate('');
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onFormSubmit(formData);
+
+    // Limpa o formulário apenas se não estiver editando
+    if (!initialData) {
+      setFormData({
+        costCenterId: '',
+        description: '',
+        value: '',
+        date: '',
+      });
+    }
+  };
+
+  const buttonText = initialData ? 'Salvar Alterações' : 'Adicionar Despesa';
+
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Descrição"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <input
-        type="number"
-        step="0.01"
-        placeholder="Valor"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-      />
-      <select value={costCenterId} onChange={(e) => setCostCenterId(e.target.value)}>
-        <option value="">Selecione um Centro de Custo</option>
-        {costCenters.map((center) => (
-          <option key={center.id} value={center.id}>
-            {center.name}
-          </option>
-        ))}
-      </select>
-      <button type="submit">Adicionar Despesa</button>
+    <form onSubmit={handleSubmit} className="expense-form">
+      <div className="form-group">
+        <label htmlFor="costCenterId">Centro de Custo</label>
+        <select
+          id="costCenterId"
+          name="costCenterId"
+          value={formData.costCenterId}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Selecione um Centro de Custo</option>
+          {costCenters && costCenters.map((cc) => (
+            <option key={cc.id} value={cc.id}>
+              {cc.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="description">Descrição</label>
+        <input
+          type="text"
+          id="description"
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="value">Valor</label>
+        <input
+          type="number"
+          id="value"
+          name="value"
+          value={formData.value}
+          onChange={handleChange}
+          step="0.01"
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="date">Data</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          value={formData.date}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="form-actions">
+        <button type="submit" className="btn btn-primary">
+          {buttonText}
+        </button>
+      </div>
     </form>
   );
-}
+};
 
 export default ExpenseForm;

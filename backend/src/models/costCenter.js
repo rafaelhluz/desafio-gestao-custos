@@ -1,9 +1,7 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
-class CostCenter extends Model {}
-
-CostCenter.init({
+const CostCenter = sequelize.define('CostCenter', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -13,10 +11,6 @@ CostCenter.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-}, {
-  sequelize,
-  modelName: 'CostCenter',
-  tableName: 'CostCenters'
 });
 
 module.exports = CostCenter;
