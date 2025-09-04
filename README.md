@@ -26,12 +26,15 @@ Antes de iniciar, certifique-se de ter instalado:
 Acesse a pasta do backend:
 
 '''bash
+
 cd backend
-Instale as dependências:
+
+## Instale as dependências:
 
 '''bash
 npm install
-Crie o banco de dados no MySQL:
+
+## Crie o banco de dados no MySQL:
 
 sql
 CREATE DATABASE desafio_gestao_custos;
