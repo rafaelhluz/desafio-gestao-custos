@@ -10,18 +10,16 @@ function CostCentersPage() {
   const [editingCostCenter, setEditingCostCenter] = useState(null);
   const [costCenterName, setCostCenterName] = useState('');
 
-  // Normaliza respostas diferentes do costCentersApi.getAll()
   const normalizeList = (resp) => {
     if (!resp) return [];
-    if (Array.isArray(resp)) return resp;                // caso o wrapper já devolva o array
-    if (Array.isArray(resp.data)) return resp.data;      // axios response comum
-    if (resp.data && Array.isArray(resp.data.data)) return resp.data.data; // alguns backends usam { data: [...] }
+    if (Array.isArray(resp)) return resp;
+    if (Array.isArray(resp.data)) return resp.data; 
+    if (resp.data && Array.isArray(resp.data.data)) return resp.data.data;
     return [];
   };
 
   const fetchCostCenters = async () => {
     try {
-      // cache-buster para evitar qualquer cache de GET
       const response = await costCentersApi.getAll({ params: { _t: Date.now() } });
       const list = normalizeList(response);
       setCostCenters(list);
@@ -60,7 +58,6 @@ function CostCentersPage() {
         await costCentersApi.create(ccData);
       }
 
-      // Recarrega do banco (com cache-buster dentro de fetchCostCenters)
       await fetchCostCenters();
       handleCloseModal();
     } catch (error) {
@@ -72,7 +69,7 @@ function CostCentersPage() {
     if (window.confirm('Tem certeza que deseja excluir este centro de custo?')) {
       try {
         await costCentersApi.remove(id);
-        await fetchCostCenters(); // garante estado sincronizado com o banco
+        await fetchCostCenters();
       } catch (error) {
         console.error('Erro ao excluir centro de custo:', error);
       }

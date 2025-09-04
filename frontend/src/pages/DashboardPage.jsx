@@ -18,23 +18,19 @@ function DashboardPage() {
         const expensesData = expensesResponse.data || expensesResponse;
         const costCentersData = costCentersResponse.data || costCentersResponse;
 
-        // Mapear expenses com cost center name
         const expensesWithNames = expensesData.map(expense => {
           const cc = costCentersData.find(cc => cc.id === expense.costCenterId);
-          // Certifique-se de que expense.date está em formato de data (YYYY-MM-DD)
-          // E que expense.value é um número
+
           return {
             ...expense,
             costCenterName: cc ? cc.name : 'Outros',
-            value: parseFloat(expense.value) // Garantir que o valor é um número
+            value: parseFloat(expense.value)
           };
         });
 
-        // Calcular o total de despesas
         const total = expensesWithNames.reduce((sum, expense) => sum + expense.value, 0);
         setTotalExpenses(total);
 
-        // Agrupar despesas por centro de custo para o gráfico
         const groupedExpenses = expensesWithNames.reduce((acc, expense) => {
           const { costCenterName, value } = expense;
           if (!acc[costCenterName]) {
@@ -44,7 +40,6 @@ function DashboardPage() {
           return acc;
         }, {});
 
-        // Formatar os dados para o Recharts
         const chartData = Object.entries(groupedExpenses).map(([name, value]) => ({
           name: name,
           Despesas: value,

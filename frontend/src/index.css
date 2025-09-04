@@ -5,5 +5,5 @@ body {
 }
 
 main, .expenses-container {
-  padding-top: 80px; /* altura do header */
+  padding-top: 80px;
 }

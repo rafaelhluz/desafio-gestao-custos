@@ -9,7 +9,6 @@ const ExpenseForm = ({ onFormSubmit, initialData, costCenters }) => {
     date: '',
   });
 
-  // Se houver dados iniciais (edição), preenche o formulário
   useEffect(() => {
     if (initialData) {
       setFormData({
@@ -33,7 +32,6 @@ const ExpenseForm = ({ onFormSubmit, initialData, costCenters }) => {
     e.preventDefault();
     onFormSubmit(formData);
 
-    // Limpa o formulário apenas se não estiver editando
     if (!initialData) {
       setFormData({
         costCenterId: '',

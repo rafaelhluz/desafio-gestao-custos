@@ -12,7 +12,6 @@ function ExpensesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingExpense, setEditingExpense] = useState(null);
 
-  // Busca despesas e centros de custo
   const fetchData = async () => {
     try {
       const [expensesResponse, costCentersResponse] = await Promise.all([
@@ -46,7 +45,6 @@ function ExpensesPage() {
     setIsModalOpen(false);
   };
 
-  // Criar ou atualizar despesa
   const handleFormSubmit = async (formData) => {
     try {
       if (editingExpense) {

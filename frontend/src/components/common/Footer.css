@@ -1,7 +1,7 @@
 .footer-container {
-  background-color: #f8f9fa; /* Fundo principal cinza claro */
-  border-top: 1px solid #e9ecef; /* Linha divisória */
-  color: #343a40; /* Cor do texto */
+  background-color: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  color: #343a40;
   padding-top: 2rem;
   margin-top: 2rem;
 }
@@ -12,13 +12,13 @@
   padding: 0 2rem 2rem;
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap; /* Permite que as colunas quebrem em telas menores */
+  flex-wrap: wrap;
   gap: 2rem;
 }
 
 .footer-col {
   flex: 1;
-  min-width: 200px; /* Garante que as colunas não fiquem muito pequenas */
+  min-width: 200px;
 }
 
 .footer-title {

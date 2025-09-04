@@ -24,7 +24,6 @@ exports.createCostCenter = async (req, res) => {
   }
 };
 
-// NOVO: Adicione as funções de atualização e exclusão
 exports.updateCostCenter = async (req, res) => {
     try {
         const { id } = req.params;

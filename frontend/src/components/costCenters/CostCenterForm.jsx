@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
-import './CostCenterForm.css'; // Importe o arquivo CSS que criamos
+import './CostCenterForm.css';
 
 function CostCenterForm({ onFormSubmit }) {
   const [name, setName] = useState('');
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // Impede o recarregamento da página
+    event.preventDefault();
     if (name.trim() === '') return;
 
-    // Chama a função onFormSubmit (que virá do componente pai)
-    // para lidar com a criação do centro de custo
     onFormSubmit({ name });
 
-    // Limpa o campo do formulário
     setName('');
   };
 

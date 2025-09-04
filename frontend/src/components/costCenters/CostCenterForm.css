@@ -1,14 +1,12 @@
-/* Centralização do conteúdo na página */
 .center-content {
   display: flex;
-  justify-content: center; /* Centraliza horizontalmente na página */
-  align-items: center; /* Centraliza verticalmente na página */
+  justify-content: center;
+  align-items: center;
   min-height: 200px;
   width: 100%;
   box-sizing: border-box;
 }
 
-/* Estilo do Card que envolve o formulário */
 .cost-center-form-card {
   width: 100%;
   max-width: 500px;
@@ -19,7 +17,6 @@
   box-shadow: var(--shadow);
 }
 
-/* Estilo do Formulário */
 .cost-center-form {
   display: flex;
   flex-direction: column;

@@ -17,7 +17,6 @@ exports.getAllExpenses = async (req, res) => {
   }
 };
 
-// NOVO: Adicione as funções de criação, atualização e exclusão
 exports.createExpense = async (req, res) => {
     try {
         const newExpense = await Expense.create(req.body);

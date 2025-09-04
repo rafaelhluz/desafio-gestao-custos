@@ -7,7 +7,6 @@ function Footer() {
   return (
     <footer className="footer-container">
       <div className="footer-main">
-        {/* Coluna 1: Informações do Projeto */}
         <div className="footer-col">
           <h3 className="footer-title">Gestão de Custos</h3>
           <p>
@@ -26,7 +25,6 @@ function Footer() {
           </div>
         </div>
 
-        {/* Coluna 2: Links de Navegação */}
         <div className="footer-col">
           <h3 className="footer-title">Navegação</h3>
           <ul>
@@ -36,7 +34,6 @@ function Footer() {
           </ul>
         </div>
 
-        {/* Coluna 3: Contato */}
         <div className="footer-col">
           <h3 className="footer-title">Contato</h3>
           <p>
@@ -48,7 +45,6 @@ function Footer() {
         </div>
       </div>
 
-      {/* Barra de Direitos Autorais */}
       <div className="footer-bottom">
         <p>© {new Date().getFullYear()} Gestão de Custos. Todos os direitos reservados.</p>
       </div>

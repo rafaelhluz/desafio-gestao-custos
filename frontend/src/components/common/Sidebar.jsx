@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faMoneyBillWave, faTags, faBars } from '@fortawesome/free-solid-svg-icons';
 import './Sidebar.css';
-import logo from '../../assets/logo.png'; // Caminho corrigido
+import logo from '../../assets/logo.png';
 
 const Sidebar = ({ isCollapsed, onToggle }) => {
     return (
