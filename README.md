@@ -2,6 +2,7 @@
 
 Este projeto é uma aplicação web de **gestão de custos domésticos**, desenvolvida para gerenciar **centros de custo** e suas respectivas **despesas**.  
 O sistema é dividido em duas partes: **frontend em React** e **backend em Node.js com Express e MySQL**.
+Inclui **testes unitários e de integração** com Jest e Supertest.
 
 ---
 
@@ -9,30 +10,16 @@ O sistema é dividido em duas partes: **frontend em React** e **backend em Node.
 
 ### Backend
 
-Node.js – Ambiente de execução JavaScript
-
-Express – Framework para criação da API REST
-
-Sequelize – ORM para manipulação do banco de dados
-
-MySQL – Banco de dados relacional
-
-cors – Middleware para requisições entre origens diferentes
-
-### Frontend
-
-React – Biblioteca para construção da interface do usuário
-
-Axios – Cliente HTTP para comunicação com a API
-
-Vite – Ferramenta de build rápida e moderna
+- **Frontend:** React, Axios
+- **Backend:** Node.js, Express
+- **Banco de Dados:** MySQL
+- **Testes:** Jest, Supertest
 
 ## Pré-requisitos
 Antes de iniciar, certifique-se de ter instalado:
 
-Node.js e npm
-
-MySQL (servidor local)
+- [Node.js](https://nodejs.org/) instalado
+- [MySQL](https://www.mysql.com/) instalado e em execução
 
 ## Instruções de Instalação e Execução
 ## Backend
@@ -73,6 +60,11 @@ npm install
 npm run dev
 
 O frontend estará disponível em: http://localhost:5173
+
+### Rodar os testes do backend
+
+'''bash
+npm test
 
 ### Decisões Técnicas
 ### Arquitetura

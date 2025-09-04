@@ -4,7 +4,8 @@
   "description": "API para o desafio de gestão de custos",
   "main": "server.js",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node index.js",
+    "test": "jest --detectOpenHandles"
   },
   "keywords": [
     "express",
@@ -18,5 +19,9 @@
     "express": "^4.21.2",
     "mysql2": "^3.14.4",
     "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "jest": "^30.1.3",
+    "supertest": "^7.1.4"
   }
 }
