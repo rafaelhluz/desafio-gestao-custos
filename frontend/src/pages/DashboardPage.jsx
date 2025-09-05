@@ -61,8 +61,8 @@ function DashboardPage() {
 
   return (
     <div className="page-container">
-      <h1 className="page-title">Dashboard</h1>
-      <p className="page-subtitle">Visão geral das suas finanças.</p>
+      <h1 className="page-title page-title-center">Despesas</h1>
+      <p className="page-subtitle page-subtitle-center">Visão geral das suas finanças.</p>
       <div className="dashboard-content">
         <div className="card summary-card animate-fade-in">
           <h3 className="summary-title">Resumo Mensal</h3>

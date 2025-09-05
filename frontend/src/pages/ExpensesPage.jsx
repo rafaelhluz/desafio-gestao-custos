@@ -75,8 +75,8 @@ function ExpensesPage() {
 
   return (
     <div className="page-container">
-      <h1 className="page-title">Despesas</h1>
-      <p className="page-subtitle">Gerencie suas despesas vinculadas a centros de custo.</p>
+      <h1 className="page-title page-title-center">Despesas</h1>
+      <p className="page-subtitle page-subtitle-center">Gerencie suas despesas vinculadas a centros de custo.</p>
 
       <div className="expenses-content-wrapper">
         <div className="new-expense-header new-item-button-center">

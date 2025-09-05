@@ -5,9 +5,9 @@ import { faTachometerAlt, faMoneyBillWave, faTags, faBars } from '@fortawesome/f
 import './Sidebar.css';
 import logo from '../../assets/logo.png';
 
-const Sidebar = ({ isCollapsed, onToggle }) => {
+const Sidebar = ({ isCollapsed, onToggle, isMobileOpen = false }) => {
     return (
-        <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+        <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''} ${isMobileOpen ? 'open' : ''}`}>
             <div className="sidebar-header">
                 <img src={logo} alt="Gestão de Custos Logo" className="sidebar-logo" />
                 {!isCollapsed && <h1 className="sidebar-title">Gestão de Custos</h1>}
